@@ -1,9 +1,35 @@
-import { Text } from "react-native"
+import { useLayoutEffect } from "react"
+import { StyleSheet, View } from "react-native"
+import { GlobalStyles } from "../constants/GlobalStyles"
+import ExpenseForm from "../components/form/ExpenseForm"
 
-const ManageExpenses = () => {
+const ManageExpenses = ({ navigation, route }) => {
+    const editedId = route.params?.id
+    isEditMode = !!editedId
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: isEditMode ? "Update Expense" : "Add",
+            headerStyle: {
+                backgroundColor: GlobalStyles.COLORS.primary300
+            },
+            headerTintColor: GlobalStyles.COLORS.light200
+        })
+    }, [])
+
     return (
-        <Text>Manage Expenses</Text>
+        <View style={styles.container}>
+            <ExpenseForm submitButtonLabel={isEditMode ? "Edit" : "Add"} />
+        </View>
     )
 }
 
 export default ManageExpenses
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: GlobalStyles.COLORS.primary200,
+        padding: 15
+    }
+})

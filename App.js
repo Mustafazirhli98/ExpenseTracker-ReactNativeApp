@@ -8,7 +8,7 @@ import { ContextProvider } from './context/ExpensesCTX';
 export default function App() {
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <ContextProvider>
         <NavigationContainer>
           <NativeStack />
@@ -27,9 +27,7 @@ const styles = StyleSheet.create({
 
 
 //TODOS
-//ExpensesOutput componentlerini düzenle. RecentExpenses ve AllExpenses içinden data gönderiyorsun, flatlistler ve summary üzerinden bu datayı yazdır.
 // stil düzenlemesi yap.
-// Manage expenses oluştur.
 // Manage expenses düzenlemelerini yap.
 // HTTP services dosyasını oluştur.
 // Firebase'e data gönder.

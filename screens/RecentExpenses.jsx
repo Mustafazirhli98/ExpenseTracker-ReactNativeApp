@@ -8,9 +8,8 @@ const RecentExpenses = () => {
     const recentExpenses = expensesCTX.expenses.filter(item => {
         const today = new Date()
         const expenseDate = getRecentDays(today, 7)
-        return expenseDate > item.date
+        return item.date > expenseDate
     })
-
     return (
         <ExpensesOutput expenses={recentExpenses} periodName={"For 7 Days"} />
     )

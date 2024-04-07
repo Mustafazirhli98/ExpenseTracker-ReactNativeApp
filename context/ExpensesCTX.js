@@ -4,22 +4,26 @@ const DUMMY_DATA = [
     {
         amount: 5,
         date: new Date("2024-04-07"),
-        description: "Newspaper"
+        description: "Newspaper",
+        id: 1
     },
     {
         amount: 50,
         date: new Date("2024-04-07"),
-        description: "3 theathre tickets"
+        description: "3 theathre tickets",
+        id: 2
     },
     {
         amount: 500,
         date: new Date("2024-03-07"),
-        description: "new cellphone"
+        description: "new cellphone",
+        id: 3
     },
     {
         amount: 50,
         date: new Date("2024-04-06"),
-        description: "a pair of shoes"
+        description: "a pair of shoes",
+        id: 4
     }
 ]
 

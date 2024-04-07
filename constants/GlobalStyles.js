@@ -1,8 +1,10 @@
 export const GlobalStyles = {
     COLORS: {
-        light: "#F8F6E3",
+        light100: "#bcbcbb",
+        light200: "#F8F6E3",
         primary100: "#97E7E1",
         primary200: "#6AD4DD",
-        primary300: "#7AA2E3"
+        primary300: "#4468a1",
+        primary400: "#333640"
     }
 } 
