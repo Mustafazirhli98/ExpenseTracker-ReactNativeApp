@@ -1,8 +1,12 @@
-import { Text } from "react-native"
+import { useContext } from "react"
+import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput"
+import { ExpensesContext } from "../context/ExpensesCTX"
 
 const AllExpenses = () => {
+    const expensesCTX = useContext(ExpensesContext)
+
     return (
-        <Text>All Expenses</Text>
+        <ExpensesOutput expenses={expensesCTX} periodName={Total} />
     )
 }
 

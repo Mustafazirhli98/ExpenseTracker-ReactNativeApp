@@ -7,7 +7,13 @@ const Stack = createNativeStackNavigator()
 const NativeStack = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Expenses Overview" component={BottomTabs} />
+            <Stack.Screen
+                name="Expenses Overview"
+                component={BottomTabs}
+                options={{
+                    headerShown: false
+                }}
+            />
             <Stack.Screen name="ManageExpenses" component={ManageExpenses} />
         </Stack.Navigator>
     )

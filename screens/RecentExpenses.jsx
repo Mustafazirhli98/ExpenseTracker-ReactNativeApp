@@ -1,8 +1,18 @@
-import { Text } from "react-native"
+import { useContext } from "react"
+import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput"
+import { ExpensesContext } from "../context/ExpensesCTX"
+import { getRecentDays } from "../utils/dates"
 
 const RecentExpenses = () => {
+    const expensesCTX = useContext(ExpensesContext)
+    const recentExpenses = expensesCTX.expenses.filter(item => {
+        const today = new Date()
+        const expenseDate = getRecentDays(today, 7)
+        return expenseDate > item.date
+    })
+
     return (
-        <Text>Recent Expenses</Text>
+        <ExpensesOutput expenses={recentExpenses} periodName={"For 7 Days"} />
     )
 }
 
