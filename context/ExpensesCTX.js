@@ -24,6 +24,12 @@ const DUMMY_DATA = [
         date: new Date("2024-04-06"),
         description: "a pair of shoes",
         id: 4
+    },
+    {
+        amount: 40,
+        date: new Date("2024-04-09"),
+        description: "Fast food",
+        id: 4
     }
 ]
 

@@ -5,15 +5,11 @@ import ExpenseForm from "../components/form/ExpenseForm"
 
 const ManageExpenses = ({ navigation, route }) => {
     const editedId = route.params?.id
-    isEditMode = !!editedId
+    const isEditMode = !!editedId
 
     useLayoutEffect(() => {
         navigation.setOptions({
             title: isEditMode ? "Update Expense" : "Add",
-            headerStyle: {
-                backgroundColor: GlobalStyles.COLORS.primary300
-            },
-            headerTintColor: GlobalStyles.COLORS.light200
         })
     }, [])
 

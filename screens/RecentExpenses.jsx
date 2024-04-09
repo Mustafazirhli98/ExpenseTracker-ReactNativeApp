@@ -10,6 +10,7 @@ const RecentExpenses = () => {
         const expenseDate = getRecentDays(today, 7)
         return item.date > expenseDate
     })
+
     return (
         <ExpensesOutput expenses={recentExpenses} periodName={"For 7 Days"} />
     )
