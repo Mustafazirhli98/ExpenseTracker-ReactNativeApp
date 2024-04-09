@@ -22,10 +22,15 @@ const ManageExpenses = ({ navigation, route }) => {
 
     const onDelete = () => {
         expensesCTX.deleteExpense(editedId)
+        navigation.goBack()
     }
 
     const confirmHandler = (expenseData) => {
-        //update ve add işlemleri gerçekleşecek
+        if (isEditMode) {
+            expensesCTX.updateExpense(expenseData)
+        } else {
+            expensesCTX.addExpense(expenseData)
+        }
     }
 
 
@@ -42,7 +47,7 @@ const ManageExpenses = ({ navigation, route }) => {
                         <DeleteButton
                             name={"trash"}
                             size={50}
-                            color={GlobalStyles.COLORS.primary300}
+                            color={GlobalStyles.COLORS.light200}
                             onPress={onDelete}
                         />
                     </View>
@@ -57,11 +62,13 @@ export default ManageExpenses
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: GlobalStyles.COLORS.primary200,
+        backgroundColor: GlobalStyles.COLORS.primary400,
         padding: 15
     },
+
     deleteIconContainer: {
         borderTopWidth: 1,
+        borderTopColor: GlobalStyles.COLORS.light100,
         marginTop: 30,
         padding: 15,
         justifyContent: "center",

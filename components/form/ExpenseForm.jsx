@@ -1,7 +1,8 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
 import FormButton from "../UI/FormButton"
 import Input from "./Input"
 import { useState } from "react"
+import { GlobalStyles } from "../../constants/GlobalStyles"
 
 const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
 
@@ -20,13 +21,15 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
     }
 
     const submitHandler = () => {
-        //gerekli  validation işlemleri ile birlikte data tekrar gönderilecek ve onSubmit(expenseData) çalıştırılacak
+        //gerekli  validation işlemleri ile birlikte data tekrar gönderilecek ve onSubmit(expenseData) çalıştırılacak.
     }
 
     return (
         <View>
+            <Text style={styles.title}>Expense Information</Text>
             <View style={styles.inputGroup}>
                 <Input
+                    style={styles.rowInput}
                     label="amount"
                     textInputConfig={{
                         keyboardType: "number-pad",
@@ -34,10 +37,11 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
                     }}
                 />
                 <Input
+                    style={styles.rowInput}
                     label="date"
                     textInputConfig={{
                         maxLength: 10,
-                        placeHolder: "YYYY-MM-DD",
+                        placeholder: "YYYY-MM-DD",
                         onChangeText: (enteredText) => inputChangeHandler("date", enteredText)
                     }}
                 />
@@ -45,13 +49,22 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
             <Input
                 label="description"
                 textInputConfig={{
-                    onChangeText: (enteredText) => inputChangeHandler("description", enteredText)
+                    onChangeText: (enteredText) => inputChangeHandler("description", enteredText),
+                    multiline: true
                 }}
             />
             <View style={styles.buttonContainer}>
-                <FormButton style={styles.button} onPress={onCancel}>Cancel</FormButton>
                 <FormButton
-                    style={styles.button}>
+                    style={styles.button}
+                    onPress={onCancel}
+                    mode="flat"
+                >
+                    Cancel
+                </FormButton>
+                <FormButton
+                    style={styles.button}
+                    onPress={submitHandler}
+                >
                     {submitButtonLabel}
                 </FormButton>
             </View>
@@ -62,15 +75,28 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
 export default ExpenseForm
 
 const styles = StyleSheet.create({
+    title: {
+        textAlign: "center",
+        color: GlobalStyles.COLORS.light200,
+        fontSize: 24,
+        fontWeight: "bold",
+        marginTop: 50
+    },
     inputGroup: {
+        flexDirection: "row",
+        marginTop: 30,
+    },
+    rowInput: {
+        flex: 1,
     },
     buttonContainer: {
         flexDirection: "row",
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: 20
     },
     button: {
-        marginHorizontal: 20,
-
+        marginHorizontal: 15,
+        minWidth: 100
     }
 })
