@@ -1,8 +1,8 @@
 import { Pressable, Text } from "react-native"
 
-const FormButton = ({ children, style }) => {
+const FormButton = ({ children, style, onPress }) => {
     return (
-        <Pressable style={style}>
+        <Pressable style={style} onPress={onPress}>
             <Text>{children}</Text>
         </Pressable>
     )

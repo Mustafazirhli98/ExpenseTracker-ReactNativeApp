@@ -3,7 +3,7 @@ import FormButton from "../UI/FormButton"
 import Input from "./Input"
 import { useState } from "react"
 
-const ExpenseForm = ({ submitButtonLabel }) => {
+const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
 
     const [inputData, setInputData] = useState({
         amount: { value: "", isValid: true },
@@ -17,6 +17,10 @@ const ExpenseForm = ({ submitButtonLabel }) => {
             [inputName]: { value: enteredText, isValid: true }
         }
         ))
+    }
+
+    const submitHandler = () => {
+        //gerekli  validation işlemleri ile birlikte data tekrar gönderilecek ve onSubmit(expenseData) çalıştırılacak
     }
 
     return (
@@ -45,8 +49,11 @@ const ExpenseForm = ({ submitButtonLabel }) => {
                 }}
             />
             <View style={styles.buttonContainer}>
-                <FormButton style={styles.button}>Cancel</FormButton>
-                <FormButton style={styles.button}>{submitButtonLabel}</FormButton>
+                <FormButton style={styles.button} onPress={onCancel}>Cancel</FormButton>
+                <FormButton
+                    style={styles.button}>
+                    {submitButtonLabel}
+                </FormButton>
             </View>
         </View>
     )

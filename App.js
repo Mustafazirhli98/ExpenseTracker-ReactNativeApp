@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
 
 
 //TODOS
-// Manage expenses düzenlemelerini yap.
 // stil düzenlemesi yap.
 // HTTP services dosyasını oluştur.
 // Firebase'e data gönder.
