@@ -4,6 +4,7 @@ import { GlobalStyles } from "../constants/GlobalStyles"
 import ExpenseForm from "../components/form/ExpenseForm"
 import { ExpensesContext } from "../context/ExpensesCTX"
 import DeleteButton from "../components/UI/DeleteButton"
+import { storeData } from "../utils/http"
 
 const ManageExpenses = ({ navigation, route }) => {
     const expensesCTX = useContext(ExpensesContext)
@@ -29,8 +30,10 @@ const ManageExpenses = ({ navigation, route }) => {
         if (isEditMode) {
             expensesCTX.updateExpense(expenseData)
         } else {
-            expensesCTX.addExpense(expenseData)
+            // storeData(expenseData)
+            // expensesCTX.addExpense(expenseData)
         }
+        navigation.goBack()
     }
 
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native"
+import { Keyboard, StyleSheet, Text, View } from "react-native"
 import FormButton from "../UI/FormButton"
 import Input from "./Input"
 import { useState } from "react"
@@ -12,16 +12,33 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
         description: { value: "", isValid: true }
     })
 
+    const isFormValid = inputData.amount.isValid && inputData.date.isValid && inputData.description.isValid
+
     const inputChangeHandler = (inputName, enteredText) => {
         setInputData(prev => ({
             ...prev,
             [inputName]: { value: enteredText, isValid: true }
-        }
-        ))
+        }))
     }
-
     const submitHandler = () => {
-        //gerekli  validation işlemleri ile birlikte data tekrar gönderilecek ve onSubmit(expenseData) çalıştırılacak.
+        Keyboard.dismiss()
+        const expenseData = {
+            amount: inputData.amount.value,
+            date: new Date(inputData.date.value),
+            description: inputData.description.value
+        }
+        const isAmountValid = !isNaN(expenseData.amount) && expenseData.amount > 0
+        const isDateValid = expenseData.date.toString() !== 'Invalid Date'
+        const isDescriptionValid = expenseData.description.trim() !== ""
+        if (!isAmountValid || !isDateValid || isDescriptionValid) {
+            setInputData(prev => ({
+                amount: { value: prev.amount.value, isValid: isAmountValid },
+                date: { value: prev.date.value, isValid: isDateValid },
+                description: { value: prev.date.value, isValid: isDescriptionValid }
+            }))
+            return;
+        }
+        onSubmit(expenseData)
     }
 
     return (
@@ -29,6 +46,7 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
             <Text style={styles.title}>Expense Information</Text>
             <View style={styles.inputGroup}>
                 <Input
+                    invalid={!inputData.amount.isValid}
                     style={styles.rowInput}
                     label="amount"
                     textInputConfig={{
@@ -37,6 +55,7 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
                     }}
                 />
                 <Input
+                    invalid={!inputData.date.isValid}
                     style={styles.rowInput}
                     label="date"
                     textInputConfig={{
@@ -47,12 +66,14 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
                 />
             </View>
             <Input
+                invalid={!inputData.description.isValid}
                 label="description"
                 textInputConfig={{
                     onChangeText: (enteredText) => inputChangeHandler("description", enteredText),
                     multiline: true
                 }}
             />
+            {!isFormValid && <Text style={styles.errorMessage}>Informations are not in a valid type.</Text>}
             <View style={styles.buttonContainer}>
                 <FormButton
                     style={styles.button}
@@ -98,5 +119,9 @@ const styles = StyleSheet.create({
     button: {
         marginHorizontal: 15,
         minWidth: 100
+    },
+    errorMessage: {
+        textAlign: "center",
+        color: GlobalStyles.COLORS.errorTextColor
     }
 })

@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
 
 //TODOS
 // HTTP services dosyasını oluştur.
+//authentication yap.
 // Firebase'e data gönder.
 // ekrana fireBase'den gelen datayı yükle
 // Update işlemini sağla.
+// delete işlemi sağla.
