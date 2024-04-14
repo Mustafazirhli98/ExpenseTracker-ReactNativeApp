@@ -9,7 +9,7 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
     const [inputData, setInputData] = useState({
         amount: { value: "", isValid: true },
         date: { value: "", isValid: true },
-        description: { value: "", isValid: true }
+        description: { value: "", isValid: true },
     })
 
     const isFormValid = inputData.amount.isValid && inputData.date.isValid && inputData.description.isValid
@@ -30,7 +30,8 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
         const isAmountValid = !isNaN(expenseData.amount) && expenseData.amount > 0
         const isDateValid = expenseData.date.toString() !== 'Invalid Date'
         const isDescriptionValid = expenseData.description.trim() !== ""
-        if (!isAmountValid || !isDateValid || isDescriptionValid) {
+        console.log(expenseData)
+        if (!isAmountValid || !isDateValid || !isDescriptionValid) {
             setInputData(prev => ({
                 amount: { value: prev.amount.value, isValid: isAmountValid },
                 date: { value: prev.date.value, isValid: isDateValid },

@@ -1,12 +1,13 @@
-import { useContext, useLayoutEffect } from "react"
+import { useContext, useLayoutEffect, useState } from "react"
 import { StyleSheet, Text, View } from "react-native"
 import { GlobalStyles } from "../constants/GlobalStyles"
 import ExpenseForm from "../components/form/ExpenseForm"
 import { ExpensesContext } from "../context/ExpensesCTX"
 import DeleteButton from "../components/UI/DeleteButton"
-import { storeData } from "../utils/http"
+import { deleteData, storeData } from "../utils/http"
 
 const ManageExpenses = ({ navigation, route }) => {
+    const [isLoading, setIsLoading] = useState(false)
     const expensesCTX = useContext(ExpensesContext)
     const editedId = route.params?.id
     const isEditMode = !!editedId
@@ -20,18 +21,23 @@ const ManageExpenses = ({ navigation, route }) => {
     const onCancel = () => {
         navigation.goBack()
     }
-
-    const onDelete = () => {
-        expensesCTX.deleteExpense(editedId)
-        navigation.goBack()
+    const onDelete = async () => {
+        try {
+            //loading ekle
+            expensesCTX.deleteExpense(editedId)
+            await deleteData(editedId)
+            navigation.goBack()
+        } catch {
+            console.log("delete error")
+        }
     }
 
-    const confirmHandler = (expenseData) => {
+    const confirmHandler = async (expenseData) => {
         if (isEditMode) {
             expensesCTX.updateExpense(expenseData)
         } else {
-            // storeData(expenseData)
-            // expensesCTX.addExpense(expenseData)
+            const id = await storeData(expenseData)
+            expensesCTX.addExpense({ ...expenseData, id: id })
         }
         navigation.goBack()
     }

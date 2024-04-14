@@ -9,7 +9,7 @@ const ExpensesSummary = ({ expenses, periodName }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{periodName}</Text>
-            <Text style={styles.amount}>${expensesSum.toFixed(2)}</Text>
+            <Text style={styles.amount}>{parseFloat(expensesSum).toFixed(2)}</Text>
         </View>
     )
 }
