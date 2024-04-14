@@ -4,7 +4,7 @@ import { GlobalStyles } from "../constants/GlobalStyles"
 import ExpenseForm from "../components/form/ExpenseForm"
 import { ExpensesContext } from "../context/ExpensesCTX"
 import DeleteButton from "../components/UI/DeleteButton"
-import { deleteData, storeData } from "../utils/http"
+import { deleteData, storeData, updateData } from "../utils/http"
 
 const ManageExpenses = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState(false)
@@ -34,7 +34,8 @@ const ManageExpenses = ({ navigation, route }) => {
 
     const confirmHandler = async (expenseData) => {
         if (isEditMode) {
-            expensesCTX.updateExpense(expenseData)
+            await updateData(editedId, expenseData)
+            expensesCTX.updateExpense(editedId, expenseData)
         } else {
             const id = await storeData(expenseData)
             expensesCTX.addExpense({ ...expenseData, id: id })

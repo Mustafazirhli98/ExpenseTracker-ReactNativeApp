@@ -5,7 +5,7 @@ const initialValue = {
     addExpense: ({ amount, date, description, id }) => { },
     updateExpense: (id, { amount, date, description }) => { },
     deleteExpense: (id) => { },
-    setExpenses: (expenses) => { }
+    setExpenses: (expenses) => {}
 }
 
 const ExpensesContext = createContext(initialValue)
@@ -17,12 +17,15 @@ const ContextProvider = ({ children }) => {
             case "ADD":
                 return [action.payload, ...state]
             case "UPDATE":
-                const updatableIndex = expenses.findIndex(item => item.id === id)
+                const updatableExpenseIndex = state.findIndex(item => item.id === action.payload.id)
                 const updatedExpenses = [...state]
-                const updatableExpense = updatedExpenses[updatableIndex]
-                updatableExpense = action.payload.data
-                updatedExpenses = [...state, updatableExpense]
-                return updatableExpense
+                if (updatableExpenseIndex > -1) {
+                    const updatableExpense = state[updatableExpenseIndex]
+                    const updatedItem = { ...updatableExpense, ...action.payload.data }
+                    updatedExpenses[updatableExpenseIndex] = updatedItem
+                }
+                return updatedExpenses
+
             case "SET":
                 const inverted = action.payload.reverse()
                 return inverted

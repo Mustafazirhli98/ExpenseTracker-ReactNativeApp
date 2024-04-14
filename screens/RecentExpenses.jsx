@@ -4,9 +4,12 @@ import { ExpensesContext } from "../context/ExpensesCTX"
 import { getFormattedDate, getRecentDays } from "../utils/dates"
 import { fetchData } from "../utils/http"
 import { Text } from "react-native"
+import ErrorOverlay from "../components/UI/ErrorOverlay"
+import LoadingOverlay from "../components/UI/LoadingOverlay"
 
 const RecentExpenses = () => {
     const [isFetching, setIsFetching] = useState(true)
+    const [error, setError] = useState()
     const expensesCTX = useContext(ExpensesContext)
 
     useEffect(() => {
@@ -16,7 +19,7 @@ const RecentExpenses = () => {
                 const response = await fetchData()
                 expensesCTX.setExpenses(response)
             } catch {
-                console.log("getExpensesData error!")
+                setError("Can't react your expensese now, try again later...")
             }
             setIsFetching(false)
         }
@@ -30,11 +33,16 @@ const RecentExpenses = () => {
     })
 
     if (isFetching) {
-        return <Text>Fetching...</Text>
+        return <LoadingOverlay />
+    } else if (!isFetching && error) {
+        // return <ErrorOverlay errorMessage={error} />
     }
-
     return (
-        <ExpensesOutput expenses={recentExpenses} periodName={"For 7 Days"} />
+        <ExpensesOutput
+            expenses={recentExpenses}
+            periodName={"For 7 Days"}
+            fallback={"There're no expense for 7 days."}
+        />
     )
 }
 
