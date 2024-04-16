@@ -3,13 +3,23 @@ import FormButton from "../UI/FormButton"
 import Input from "./Input"
 import { useState } from "react"
 import { GlobalStyles } from "../../constants/GlobalStyles"
+import { getFormattedDate } from "../../utils/dates"
 
-const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
+const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit, defaultValues }) => {
 
     const [inputData, setInputData] = useState({
-        amount: { value: "", isValid: true },
-        date: { value: "", isValid: true },
-        description: { value: "", isValid: true },
+        amount: {
+            value: defaultValues ? defaultValues.amount.toString() : "",
+            isValid: true
+        },
+        date: {
+            value: defaultValues ? getFormattedDate(defaultValues.date) : "",
+            isValid: true
+        },
+        description: {
+            value: defaultValues ? defaultValues.description : "",
+            isValid: true
+        },
     })
 
     const isFormValid = inputData.amount.isValid && inputData.date.isValid && inputData.description.isValid
@@ -41,7 +51,6 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
         }
         onSubmit(expenseData)
     }
-
     return (
         <View>
             <Text style={styles.title}>Expense Information</Text>
@@ -52,7 +61,8 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
                     label="amount"
                     textInputConfig={{
                         keyboardType: "number-pad",
-                        onChangeText: (enteredText) => inputChangeHandler("amount", enteredText)
+                        onChangeText: (enteredText) => inputChangeHandler("amount", enteredText),
+                        value: inputData.date.value
                     }}
                 />
                 <Input
@@ -62,7 +72,8 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
                     textInputConfig={{
                         maxLength: 10,
                         placeholder: "YYYY-MM-DD",
-                        onChangeText: (enteredText) => inputChangeHandler("date", enteredText)
+                        onChangeText: (enteredText) => inputChangeHandler("date", enteredText),
+                        value: inputData.date.value
                     }}
                 />
             </View>
@@ -71,7 +82,8 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit }) => {
                 label="description"
                 textInputConfig={{
                     onChangeText: (enteredText) => inputChangeHandler("description", enteredText),
-                    multiline: true
+                    multiline: true,
+                    value: inputData.description.value
                 }}
             />
             {!isFormValid && <Text style={styles.errorMessage}>Informations are not in a valid type.</Text>}

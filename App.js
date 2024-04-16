@@ -25,6 +25,3 @@ const styles = StyleSheet.create({
 })
 
 
-
-//TODOS
-//authentication yap.

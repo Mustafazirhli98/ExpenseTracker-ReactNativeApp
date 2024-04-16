@@ -7,7 +7,7 @@ const Input = ({ label, textInputConfig, style, invalid }) => {
     if (textInputConfig.multiline) {
         inputSpesificStyle.push(styles.multiline)
     } if (invalid) inputSpesificStyle.push(styles.errorInput)
-    
+
     return (
         <View style={[styles.inputContainer, style]}>
             <Text style={[styles.label, invalid && styles.errorLabel]}>{label}</Text>
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal: 6,
         paddingVertical: 4,
-        fontSize: 18
+        fontSize: 18,
+        color: GlobalStyles.COLORS.primary400
     },
     multiline: {
         textAlignVertical: "top",
