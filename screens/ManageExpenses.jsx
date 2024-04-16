@@ -5,9 +5,10 @@ import ExpenseForm from "../components/form/ExpenseForm"
 import { ExpensesContext } from "../context/ExpensesCTX"
 import DeleteButton from "../components/UI/DeleteButton"
 import { deleteData, storeData, updateData } from "../utils/http"
+import LoadingOverlay from "../components/UI/LoadingOverlay"
 
 const ManageExpenses = ({ navigation, route }) => {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState()
     const expensesCTX = useContext(ExpensesContext)
     const editedId = route.params?.id
     const isEditMode = !!editedId
@@ -22,28 +23,37 @@ const ManageExpenses = ({ navigation, route }) => {
         navigation.goBack()
     }
     const onDelete = async () => {
+        setIsLoading(true)
         try {
-            //loading ekle
-            expensesCTX.deleteExpense(editedId)
             await deleteData(editedId)
+            expensesCTX.deleteExpense(editedId)
             navigation.goBack()
         } catch {
             console.log("delete error")
+            setIsLoading(false)
         }
     }
 
     const confirmHandler = async (expenseData) => {
         if (isEditMode) {
+            setIsLoading(true)
             await updateData(editedId, expenseData)
             expensesCTX.updateExpense(editedId, expenseData)
         } else {
+            setIsLoading(true)
             const id = await storeData(expenseData)
             expensesCTX.addExpense({ ...expenseData, id: id })
         }
         navigation.goBack()
+        setIsLoading(false)
     }
 
 
+    if (isLoading) {
+        return (
+            <LoadingOverlay />
+        )
+    }
     return (
         <View style={styles.container}>
             <ExpenseForm

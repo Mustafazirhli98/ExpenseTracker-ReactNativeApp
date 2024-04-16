@@ -27,7 +27,4 @@ const styles = StyleSheet.create({
 
 
 //TODOS
-// Update işlemini sağla.
-// delete işlemi sağla.
-// her bir isteği kontrol et ve istek yapılan yerlere loading ekle.
 //authentication yap.
