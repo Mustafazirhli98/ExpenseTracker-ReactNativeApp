@@ -62,7 +62,7 @@ const ExpenseForm = ({ submitButtonLabel, onCancel, onSubmit, defaultValues }) =
                     textInputConfig={{
                         keyboardType: "number-pad",
                         onChangeText: (enteredText) => inputChangeHandler("amount", enteredText),
-                        value: inputData.date.value
+                        value: inputData.amount.value
                     }}
                 />
                 <Input

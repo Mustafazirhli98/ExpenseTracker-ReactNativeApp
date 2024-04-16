@@ -35,7 +35,7 @@ const RecentExpenses = () => {
     if (isFetching) {
         return <LoadingOverlay />
     } else if (!isFetching && error) {
-        return <ErrorOverlay errorMessage={error} />
+        // return <ErrorOverlay errorMessage={error} />
     }
     return (
         <ExpensesOutput
