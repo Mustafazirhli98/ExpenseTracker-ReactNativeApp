@@ -1,11 +1,12 @@
 import { useContext, useLayoutEffect, useState } from "react"
-import { StyleSheet, View } from "react-native"
+import { Alert, StyleSheet, View } from "react-native"
 import { GlobalStyles } from "../constants/GlobalStyles"
 import ExpenseForm from "../components/form/ExpenseForm"
 import { ExpensesContext } from "../context/ExpensesCTX"
 import DeleteButton from "../components/UI/DeleteButton"
 import { deleteData, storeData, updateData } from "../utils/http"
 import LoadingOverlay from "../components/UI/LoadingOverlay"
+import { AlertTexts } from "../constants/AlertTexts"
 
 const ManageExpenses = ({ navigation, route }) => {
     const [isLoading, setIsLoading] = useState()
@@ -34,6 +35,14 @@ const ManageExpenses = ({ navigation, route }) => {
             setIsLoading(false)
         }
     }
+    const deleteHandler = () => {
+        Alert.alert(AlertTexts.deleteAlert.title, AlertTexts.deleteAlert.body, [
+            { style: "cancel", text: AlertTexts.deleteAlert.button2 },
+            { style: "default", text: AlertTexts.deleteAlert.button1, onPress: onDelete }
+        ])
+
+    }
+
 
     const confirmHandler = async (expenseData) => {
         try {
@@ -73,7 +82,7 @@ const ManageExpenses = ({ navigation, route }) => {
                             name={"trash"}
                             size={50}
                             color={GlobalStyles.COLORS.light200}
-                            onPress={onDelete}
+                            onPress={deleteHandler}
                         />
                     </View>
                 )
