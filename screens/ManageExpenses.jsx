@@ -1,5 +1,5 @@
 import { useContext, useLayoutEffect, useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { GlobalStyles } from "../constants/GlobalStyles"
 import ExpenseForm from "../components/form/ExpenseForm"
 import { ExpensesContext } from "../context/ExpensesCTX"
@@ -12,22 +12,23 @@ const ManageExpenses = ({ navigation, route }) => {
     const expensesCTX = useContext(ExpensesContext)
     const editedId = route.params?.id
     const isEditMode = !!editedId
+
     const selectedExpense = expensesCTX.expenses.find(item => item.id === editedId)
     useLayoutEffect(() => {
         navigation.setOptions({
             title: isEditMode ? "Update Expense" : "Add",
         })
-    }, [])
+    }, [navigation, isEditMode])
 
     const onCancel = () => {
         navigation.goBack()
     }
     const onDelete = async () => {
-        setIsLoading(true)
         try {
+            setIsLoading(true)
             await deleteData(editedId)
-            expensesCTX.deleteExpense(editedId)
             navigation.goBack()
+            expensesCTX.deleteExpense(editedId)
         } catch {
             console.log("delete error")
             setIsLoading(false)
@@ -35,17 +36,20 @@ const ManageExpenses = ({ navigation, route }) => {
     }
 
     const confirmHandler = async (expenseData) => {
-        if (isEditMode) {
+        try {
             setIsLoading(true)
-            await updateData(editedId, expenseData)
-            expensesCTX.updateExpense(editedId, expenseData)
-        } else {
-            setIsLoading(true)
-            const id = await storeData(expenseData)
-            expensesCTX.addExpense({ ...expenseData, id: id })
+            if (isEditMode) {
+                await updateData(editedId, expenseData)
+                expensesCTX.updateExpense(editedId, expenseData)
+            } else {
+                setIsLoading(true)
+                const id = await storeData(expenseData)
+                expensesCTX.addExpense({ ...expenseData, id: id })
+            }
+            navigation.goBack()
+        } catch {
+            setIsLoading(false)
         }
-        navigation.goBack()
-        setIsLoading(false)
     }
 
 

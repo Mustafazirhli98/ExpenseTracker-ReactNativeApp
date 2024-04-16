@@ -9,7 +9,7 @@ const ExpensesList = ({ expenses }) => {
         )
     }
     return (
-        <FlatList data={expenses} renderItem={renderItemHelper} keyExtractor={(item, index) => index} />
+        <FlatList data={expenses} renderItem={renderItemHelper} keyExtractor={(item) => item.id} />
     )
 }
 export default ExpensesList

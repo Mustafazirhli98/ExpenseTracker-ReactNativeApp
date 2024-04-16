@@ -4,6 +4,7 @@ const BASE_URL = "https://expensetracker-reactnati-dd53b-default-rtdb.firebaseio
 
 export const storeData = async (expensesData) => {
     const response = await axios.post(BASE_URL + "/expenses.json", expensesData)
+    return response.data.name
 }
 
 export const fetchData = async () => {

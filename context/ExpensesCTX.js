@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 const initialValue = {
     expenses: [],
-    addExpense: ({ amount, date, description, id }) => { },
+    addExpense: ({ amount, date, description }) => { },
     updateExpense: (id, { amount, date, description }) => { },
     deleteExpense: (id) => { },
     setExpenses: (expenses) => {}

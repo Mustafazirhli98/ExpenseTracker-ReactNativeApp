@@ -3,13 +3,13 @@ import { GlobalStyles } from "../../constants/GlobalStyles"
 
 const ExpensesSummary = ({ expenses, periodName }) => {
     const expensesSum = expenses.reduce((acc, expense) => {
-        return acc + expense.amount
+        return acc + parseFloat(expense.amount)
     }, 0)
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{periodName}</Text>
-            <Text style={styles.amount}>{parseFloat(expensesSum).toFixed(2)}</Text>
+            <Text style={styles.amount}>{expensesSum.toFixed(2)}</Text>
         </View>
     )
 }

@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   }
 })
 
-
+// ID render edilememe durumunu düzelt. Son eklenen datanın id'si render edilmediği için add expense ekranı geliyor edit değil.
