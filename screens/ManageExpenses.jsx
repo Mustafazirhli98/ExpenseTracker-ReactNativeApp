@@ -7,8 +7,10 @@ import DeleteButton from "../components/UI/DeleteButton"
 import { deleteData, storeData, updateData } from "../utils/http"
 import LoadingOverlay from "../components/UI/LoadingOverlay"
 import { AlertTexts } from "../constants/AlertTexts"
+import ErrorOverlay from "../components/UI/ErrorOverlay"
 
 const ManageExpenses = ({ navigation, route }) => {
+    const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState()
     const expensesCTX = useContext(ExpensesContext)
     const editedId = route.params?.id
@@ -27,11 +29,12 @@ const ManageExpenses = ({ navigation, route }) => {
     const onDelete = async () => {
         try {
             setIsLoading(true)
-            await deleteData(editedId)
+            const res = await deleteData(editedId)
+            console.log(res)
             navigation.goBack()
             expensesCTX.deleteExpense(editedId)
         } catch {
-            console.log("delete error")
+            setError("Can't delete this expense now, try again later.")
             setIsLoading(false)
         }
     }
@@ -42,8 +45,6 @@ const ManageExpenses = ({ navigation, route }) => {
         ])
 
     }
-
-
     const confirmHandler = async (expenseData) => {
         try {
             setIsLoading(true)
@@ -57,6 +58,7 @@ const ManageExpenses = ({ navigation, route }) => {
             }
             navigation.goBack()
         } catch {
+            setError("Can't response your call, please try again later.")
             setIsLoading(false)
         }
     }
@@ -65,6 +67,11 @@ const ManageExpenses = ({ navigation, route }) => {
     if (isLoading) {
         return (
             <LoadingOverlay />
+        )
+    }
+    if (!isLoading && error) {
+        return (
+            <ErrorOverlay errorMessage={error} />
         )
     }
     return (

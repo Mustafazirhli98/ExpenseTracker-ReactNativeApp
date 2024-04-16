@@ -31,5 +31,6 @@ export const updateData = async (id, expenseData) => {
 }
 
 export const deleteData = async (id) => {
-    axios.delete(BASE_URL + `/expenses/${id}.json`)
+    const response = axios.delete(BASE_URL + `/expenses/${id}.json`)
+    return response
 }

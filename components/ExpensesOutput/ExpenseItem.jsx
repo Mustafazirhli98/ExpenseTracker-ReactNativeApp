@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         backgroundColor: GlobalStyles.COLORS.primary300,
         padding: 10,
         borderRadius: 8,
-        elevation: 6,
+        elevation: 4,
         shadowColor: "black",
         shadowOffset: { height: 1, width: 1 },
         shadowOpacity: 0.25,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     amountContainer: {
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: GlobalStyles.COLORS.primary100,
+        backgroundColor: GlobalStyles.COLORS.light200,
         minWidth: 50,
         borderRadius: 8
     },

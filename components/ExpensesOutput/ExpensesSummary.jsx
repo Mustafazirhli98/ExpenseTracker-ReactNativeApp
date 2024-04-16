@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         padding: 14,
-        backgroundColor: GlobalStyles.COLORS.primary100,
+        backgroundColor: GlobalStyles.COLORS.light200,
         elevation: 4,
         shadowColor: "black",
         shadowOffset: { height: 1, width: 1 },

@@ -23,5 +23,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 })
-
-// delete işleminde ve add işleminde error state'i kur
