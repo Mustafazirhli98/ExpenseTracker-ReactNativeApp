@@ -19,7 +19,7 @@ const RecentExpenses = () => {
                 const response = await fetchData()
                 expensesCTX.setExpenses(response)
             } catch {
-                setError("Can't react your expensese now, try again later...")
+                setError("Can't reach your expensese now, try again later...")
             }
             setIsFetching(false)
         }
@@ -34,10 +34,7 @@ const RecentExpenses = () => {
 
     if (isFetching) {
         return <LoadingOverlay />
-    } else if (!isFetching && error) {
-        // return <ErrorOverlay errorMessage={error} />
-    }
-    return (
+    } else return (
         <ExpensesOutput
             expenses={recentExpenses}
             periodName={"For 7 Days"}

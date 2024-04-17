@@ -8,7 +8,7 @@ export const storeData = async (expensesData) => {
 }
 
 export const fetchData = async () => {
-    const response = await axios.get(BASE_URL + "/expenses.json")
+    const response = axios.get(BASE_URL + "/expenses.json")
     const expenses = []
     const keys = Object.keys(response.data)
     keys.forEach(item => {
@@ -22,7 +22,6 @@ export const fetchData = async () => {
         expenses.push(expenseData)
     })
     return expenses
-
 }
 
 export const updateData = async (id, expenseData) => {

@@ -63,7 +63,6 @@ const ManageExpenses = ({ navigation, route }) => {
         }
     }
 
-
     if (isLoading) {
         return (
             <LoadingOverlay />
