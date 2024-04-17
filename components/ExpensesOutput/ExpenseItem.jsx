@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: GlobalStyles.COLORS.light200,
-        minWidth: 50,
+        minWidth: 65,
         borderRadius: 8
     },
     amountText: {
